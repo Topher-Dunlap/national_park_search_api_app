@@ -76,8 +76,6 @@ $("form").submit((event) => {
   event.preventDefault();
   state_id = $('input[type="text"]').val();
   limit_num = $('input[type="number"]').val();
-  console.log(state_id);
-  console.log(limit_num);
   fetch_api_data(state_id, limit_num);
   
 });
@@ -101,10 +99,13 @@ function add_state_name(state) {
 }
 
 function displayResults(responseJson) {
-console.log(responseJson);
 let obj = responseJson;
 let api_data_holder = "";
 let api_park_address_holder = "";
+if (limit_num > obj.data.length) {
+    limit_num = obj.data.length;
+    console.log(limit_num);
+}
 for (let i = 0; i < limit_num; i++) {
     let park_name = obj.data[i].name;
     let park_URL = obj.data[i].url;
